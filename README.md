@@ -9,3 +9,7 @@ Deben forkear este repositorio y subir en ese fork sus scripts.
 El link del repositorio debe estar subido en la planilla de grupos
 
 Recuerden que si bien crean grupos para el armado del repositorio, la entrega del informe técnico a Guillermo Fossa, y la realización del análisis descriptivo, el video a Betina Polgár, es individual.
+
+## Integrantes
+- Adrian Albahaca
+- Laurentino Luna
