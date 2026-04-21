@@ -16,33 +16,33 @@ attach(datos_limpios)
 
 # Primero, obtengo un top 10 de los países con mayor puntaje en el GIRAI
 top_10 <- datos_limpios %>%
-  dplyr::arrange(desc(GIRAI)) %>%
-  dplyr::select(Pais, GIRAI_region, GIRAI) %>%
+  arrange(desc(GIRAI)) %>%
+  select(Pais, GIRAI_region, GIRAI) %>%
   head(10)
 
 # Luego, selecciono a los países con los 10 peores puntajes en el GIRAI
 bottom_10 <- datos_limpios %>%
-  dplyr::arrange(GIRAI) %>%
-  dplyr::select(Pais, GIRAI_region, GIRAI) %>%
+  arrange(GIRAI) %>%
+  select(Pais, GIRAI_region, GIRAI) %>%
   head(10)
 
 resumen_p70 <- datos_limpios %>%
-  dplyr::select(starts_with("p70_")) %>%
+  select(starts_with("p70_")) %>%
   colSums() %>%
   as.data.frame() %>%
-  tibble::rownames_to_column("area") %>%
-  dplyr::rename(frecuencia=".") %>%
-  dplyr::mutate(
+  rownames_to_column("area") %>%
+  rename(frecuencia=".") %>%
+  mutate(
     porcentaje = round(frecuencia/nrow(datos_limpios) * 100, 1),
-    area = stringr::str_remove(area, "p70_")
+    area = str_remove(area, "p70_")
   ) %>%
-  dplyr::arrange(desc(frecuencia))
+  arrange(desc(frecuencia))
 
 # -------------------------------------
 # Análisis del GIRAI
 girai_valores <- datos_limpios %>%
   dplyr::summarise(
-    n = dplyr::n(),
+    n = n(),
     Media = mean(datos_limpios$GIRAI),
     Mediana = median(datos_limpios$GIRAI),
     Desvio = sd(datos_limpios$GIRAI),
@@ -55,9 +55,9 @@ girai_valores <- datos_limpios %>%
 
 # Cant. de países por debajo de la media
 paises_debajo <- datos_limpios %>%
-  dplyr::summarise(
+  summarise(
     bajo_media = sum(GIRAI < mean(GIRAI)),
-    porcentaje = round(sum(GIRAI < mean(GIRAI)) / dplyr::n() * 100, 1)
+    porcentaje = round(sum(GIRAI < mean(GIRAI)) / n() * 100, 1)
   )
 
 # --------------------
@@ -67,9 +67,9 @@ paises_debajo <- datos_limpios %>%
 girai_valores$Q3
 
 datos_limpios %>%
-  dplyr::filter(GIRAI >= 32 & GIRAI <= 40) %>%
-  dplyr::select(Pais, GIRAI_region, GIRAI) %>%
-  dplyr::arrange(desc(GIRAI))
+  filter(GIRAI >= 32 & GIRAI <= 40) %>%
+  select(Pais, GIRAI_region, GIRAI) %>%
+  arrange(desc(GIRAI))
 
 # No hay un quiebre natural, se desarrollan de una forma muy heterogénea
 # Además, los puntajes siguen siendo bajos
@@ -78,8 +78,8 @@ datos_limpios %>%
 # -------------------------------------------------
 # Análisis del grupo
 lideres_valores_grupo <- datos_limpios %>%
-  dplyr::group_by(lider) %>%
-  dplyr::summarise(
+  group_by(lider) %>%
+  summarise(
     Media_GOB = mean(gob),
     Media_DDHH = mean(ddhh),
     Media_CAP = mean(cap),
@@ -89,20 +89,20 @@ lideres_valores_grupo <- datos_limpios %>%
 # -------------------------------------------------
 # Análisis p70
 resumen_p70_grupo <- datos_limpios %>%
-  dplyr::select(lider, starts_with("p70_")) %>%
-  tidyr::pivot_longer(
+  select(lider, starts_with("p70_")) %>%
+  pivot_longer(
     cols      = starts_with("p70_"),
     names_to  = "area",
     values_to = "supera70"
   ) %>%
-  dplyr::mutate(area = stringr::str_remove(area, "p70_")) %>%
-  dplyr::group_by(lider, area) %>%
-  dplyr::summarise(
+  mutate(area = str_remove(area, "p70_")) %>%
+  group_by(lider, area) %>%
+  summarise(
     frecuencia = sum(supera70),
     porcentaje = round(mean(supera70) * 100, 1),
     .groups    = "drop"
   ) %>%
-  dplyr::arrange(lider, desc(porcentaje))
+  arrange(lider, desc(porcentaje))
 
 resumen_p70_grupo
 
