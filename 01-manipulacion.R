@@ -13,7 +13,7 @@ datos_limpios <- datos %>%
     Pais, ISO3, GIRAI_region,
     
     # Cuantitativas continuas
-    GIRAI, ddhh, gob, cap, ag,
+    GIRAI, ddhh, gob, cap, ag, ane,
     
     # Cuantitativa discreta
     areas_concient,
@@ -38,5 +38,6 @@ datos_limpios <- datos %>%
                      ordered=TRUE),
     lider = factor(ifelse(GIRAI > 40, "Líder", "Resto"))
     # Uso de 40 por Q3, medida conservadora
+    # Demostrado en Análisis Numérico
     
   )

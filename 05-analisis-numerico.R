@@ -80,11 +80,45 @@ datos_limpios %>%
 lideres_valores_grupo <- datos_limpios %>%
   dplyr::group_by(lider) %>%
   dplyr::summarise(
-    Media_GOB = mean(gob),
-    Media_DDHH = mean(ddhh),
-    Media_CAP = mean(cap),
-    Media_AG = mean(ag)
+    Mediana_GOB = median(gob),
+    Mediana_DDHH = median(ddhh),
+    Mediana_CAP = median(cap),
+    Mediana_AG = median(ag),
+    Mediana_ANE = median(ane),
+    Desvio_GOB = sd(gob),
+    Desvio_DDHH = sd(ddhh),
+    Desvio_CAP = sd(cap),
+    Desvio_AG = sd(ag),
+    Desvio_ANE = sd(ane),
+    Min_GIRAI = min(GIRAI),
+    Max_GIRAI = max(GIRAI)
   )
+
+lideres_valores_grupo
+
+var_girai_lideres <- datos_limpios %>%
+  dplyr::filter(lider == "Líder") %>%
+  dplyr::summarize(
+    Media = mean(GIRAI),
+    Mediana = median(GIRAI),
+    Desvio = sd(GIRAI),
+    Q1 = quantile(GIRAI, 0.25),
+    Q3 = quantile(GIRAI, 0.75),
+    Rango = round(max(GIRAI) - min(GIRAI), 2),
+    Coef_Var = round(sd(GIRAI) / mean(GIRAI)*100, 2)
+  )
+
+var_girai_lideres
+
+var_girai <- datos_limpios %>%
+  dplyr::group_by(lider) %>%
+  dplyr::summarize(
+    Media = round(mean(GIRAI), 2),
+    Desvío = round(sd(GIRAI), 2),
+    CV = round(sd(GIRAI)/mean(GIRAI)*100, 2)
+  )
+
+var_girai
 
 # -------------------------------------------------
 # Análisis p70
