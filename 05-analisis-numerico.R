@@ -20,11 +20,15 @@ top_10 <- datos_limpios %>%
   dplyr::select(Pais, GIRAI_region, GIRAI) %>%
   head(10)
 
+top_10
+
 # Luego, selecciono a los países con los 10 peores puntajes en el GIRAI
 bottom_10 <- datos_limpios %>%
   dplyr::arrange(GIRAI) %>%
   dplyr::select(Pais, GIRAI_region, GIRAI) %>%
   head(10)
+
+bottom_10
 
 resumen_p70 <- datos_limpios %>%
   dplyr::select(starts_with("p70_")) %>%
@@ -77,6 +81,7 @@ datos_limpios %>%
 
 # -------------------------------------------------
 # Análisis del grupo
+
 lideres_valores_grupo <- datos_limpios %>%
   dplyr::group_by(lider) %>%
   dplyr::summarise(
@@ -114,6 +119,7 @@ var_girai <- datos_limpios %>%
   dplyr::group_by(lider) %>%
   dplyr::summarize(
     Media = round(mean(GIRAI), 2),
+    Mediana = round(median(GIRAI), 2),
     Desvío = round(sd(GIRAI), 2),
     CV = round(sd(GIRAI)/mean(GIRAI)*100, 2)
   )
@@ -139,6 +145,44 @@ resumen_p70_grupo <- datos_limpios %>%
   dplyr::arrange(lider, desc(porcentaje))
 
 resumen_p70_grupo
+
+# ------------------------------------------------------------------
+# Brechas entre lider y resto
+
+valores_grupo <- datos_limpios %>%
+  dplyr::group_by(lider) %>%
+  dplyr::summarise(
+    Mediana_GOB = median(gob),
+    Mediana_DDHH = median(ddhh),
+    Mediana_CAP = median(cap),
+    Mediana_AG = median(ag),
+    Mediana_ANE = median(ane)
+  ) %>%
+  tidyr::pivot_longer(
+    cols = starts_with("Mediana_"),
+    names_to = "Pilar",
+    values_to = "Mediana"
+  ) %>%
+  tidyr::pivot_wider(
+    names_from = lider,
+    values_from = Mediana
+  ) %>%
+  dplyr::mutate(
+    brecha = round(Líder - Resto, 2),
+    pilar = stringr::str_remove(Pilar, "Mediana_")
+  )
+
+valores_grupo
+
+comp_gob_ane <- datos_limpios %>%
+  dplyr::group_by(lider) %>%
+  dplyr::summarize(
+    Mediana_GOB = round(median(gob), 2),
+    Mediana_ANE = round(median(ane), 2),
+    Ratio = round(median(ane) / median(gob), 2)
+  )
+
+comp_gob_ane
 
 # --------------------------------------------------------------------
 
