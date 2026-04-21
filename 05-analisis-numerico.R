@@ -17,16 +17,94 @@ attach(datos_limpios)
 # Primero, obtengo un top 10 de los países con mayor puntaje en el GIRAI
 top_10 <- datos_limpios %>%
   dplyr::arrange(desc(GIRAI)) %>%
-  dplyr::select(Pais, GIRAI_region, GIRAI, cap, gob, ddhh) %>%
+  dplyr::select(Pais, GIRAI_region, GIRAI) %>%
   head(10)
 
 # Luego, selecciono a los países con los 10 peores puntajes en el GIRAI
 bottom_10 <- datos_limpios %>%
   dplyr::arrange(GIRAI) %>%
-  dplyr::select(Pais, GIRAI_region, GIRAI, cap, gob, ddhh) %>%
+  dplyr::select(Pais, GIRAI_region, GIRAI) %>%
   head(10)
 
-# Medición del p70 en los países
+resumen_p70 <- datos_limpios %>%
+  dplyr::select(starts_with("p70_")) %>%
+  colSums() %>%
+  as.data.frame() %>%
+  tibble::rownames_to_column("area") %>%
+  dplyr::rename(frecuencia=".") %>%
+  dplyr::mutate(
+    porcentaje = round(frecuencia/nrow(datos_limpios) * 100, 1),
+    area = stringr::str_remove(area, "p70_")
+  ) %>%
+  dplyr::arrange(desc(frecuencia))
+
+# -------------------------------------
+# Análisis del GIRAI
+girai_valores <- datos_limpios %>%
+  dplyr::summarise(
+    n = dplyr::n(),
+    Media = mean(datos_limpios$GIRAI),
+    Mediana = median(datos_limpios$GIRAI),
+    Desvio = sd(datos_limpios$GIRAI),
+    Minimo = min(datos_limpios$GIRAI),
+    Maximo = max(datos_limpios$GIRAI),
+    Q1 = quantile(datos_limpios$GIRAI, 0.25),
+    Q3 = quantile(datos_limpios$GIRAI, 0.75),
+    dif_relativa = round(mean(GIRAI)-median(GIRAI)/mean(GIRAI)*100, 1)
+  )
+
+# Cant. de países por debajo de la media
+paises_debajo <- datos_limpios %>%
+  dplyr::summarise(
+    bajo_media = sum(GIRAI < mean(GIRAI)),
+    porcentaje = round(sum(GIRAI < mean(GIRAI)) / dplyr::n() * 100, 1)
+  )
+
+# --------------------
+# Análisis de corte
+
+# Se empieza por el Q3
+girai_valores$Q3
+
+datos_limpios %>%
+  dplyr::filter(GIRAI >= 32 & GIRAI <= 40) %>%
+  dplyr::select(Pais, GIRAI_region, GIRAI) %>%
+  dplyr::arrange(desc(GIRAI))
+
+# No hay un quiebre natural, se desarrollan de una forma muy heterogénea
+# Además, los puntajes siguen siendo bajos
+# Por lo que, se elige 40 como el corte
+
+# -------------------------------------------------
+# Análisis del grupo
+lideres_valores_grupo <- datos_limpios %>%
+  dplyr::group_by(lider) %>%
+  dplyr::summarise(
+    Media_GOB = mean(gob),
+    Media_DDHH = mean(ddhh),
+    Media_CAP = mean(cap),
+    Media_AG = mean(ag)
+  )
+
+# -------------------------------------------------
+# Análisis p70
+resumen_p70_grupo <- datos_limpios %>%
+  dplyr::select(lider, starts_with("p70_")) %>%
+  tidyr::pivot_longer(
+    cols      = starts_with("p70_"),
+    names_to  = "area",
+    values_to = "supera70"
+  ) %>%
+  dplyr::mutate(area = stringr::str_remove(area, "p70_")) %>%
+  dplyr::group_by(lider, area) %>%
+  dplyr::summarise(
+    frecuencia = sum(supera70),
+    porcentaje = round(mean(supera70) * 100, 1),
+    .groups    = "drop"
+  ) %>%
+  dplyr::arrange(lider, desc(porcentaje))
+
+resumen_p70_grupo
 
 # --------------------------------------------------------------------
 
