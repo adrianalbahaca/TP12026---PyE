@@ -13,7 +13,7 @@ datos_limpios <- datos %>%
     Pais, ISO3, GIRAI_region,
 
     # Cuantitativas continuas
-    GIRAI, ddhh, gob, cap, ag,
+    GIRAI, ddhh, gob, cap, ag, ane
 
     # Cuantitativa discreta
     areas_concient,

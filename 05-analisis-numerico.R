@@ -16,33 +16,37 @@ attach(datos_limpios)
 
 # Primero, obtengo un top 10 de los países con mayor puntaje en el GIRAI
 top_10 <- datos_limpios %>%
-  arrange(desc(GIRAI)) %>%
-  select(Pais, GIRAI_region, GIRAI) %>%
+  dplyr::arrange(desc(GIRAI)) %>%
+  dplyr::select(Pais, GIRAI_region, GIRAI) %>%
   head(10)
+
+top_10
 
 # Luego, selecciono a los países con los 10 peores puntajes en el GIRAI
 bottom_10 <- datos_limpios %>%
-  arrange(GIRAI) %>%
-  select(Pais, GIRAI_region, GIRAI) %>%
+  dplyr::arrange(GIRAI) %>%
+  dplyr::select(Pais, GIRAI_region, GIRAI) %>%
   head(10)
 
+bottom_10
+
 resumen_p70 <- datos_limpios %>%
-  select(starts_with("p70_")) %>%
+  dplyr::select(starts_with("p70_")) %>%
   colSums() %>%
   as.data.frame() %>%
-  rownames_to_column("area") %>%
-  rename(frecuencia=".") %>%
-  mutate(
+  tibble::rownames_to_column("area") %>%
+  dplyr::rename(frecuencia=".") %>%
+  dplyr::mutate(
     porcentaje = round(frecuencia/nrow(datos_limpios) * 100, 1),
-    area = str_remove(area, "p70_")
+    area = stringr::str_remove(area, "p70_")
   ) %>%
-  arrange(desc(frecuencia))
+  dplyr::arrange(desc(frecuencia))
 
 # -------------------------------------
 # Análisis del GIRAI
 girai_valores <- datos_limpios %>%
   dplyr::summarise(
-    n = n(),
+    n = dplyr::n(),
     Media = mean(datos_limpios$GIRAI),
     Mediana = median(datos_limpios$GIRAI),
     Desvio = sd(datos_limpios$GIRAI),
@@ -55,9 +59,9 @@ girai_valores <- datos_limpios %>%
 
 # Cant. de países por debajo de la media
 paises_debajo <- datos_limpios %>%
-  summarise(
+  dplyr::summarise(
     bajo_media = sum(GIRAI < mean(GIRAI)),
-    porcentaje = round(sum(GIRAI < mean(GIRAI)) / n() * 100, 1)
+    porcentaje = round(sum(GIRAI < mean(GIRAI)) / dplyr::n() * 100, 1)
   )
 
 # --------------------
@@ -67,9 +71,9 @@ paises_debajo <- datos_limpios %>%
 girai_valores$Q3
 
 datos_limpios %>%
-  filter(GIRAI >= 32 & GIRAI <= 40) %>%
-  select(Pais, GIRAI_region, GIRAI) %>%
-  arrange(desc(GIRAI))
+  dplyr::filter(GIRAI >= 32 & GIRAI <= 40) %>%
+  dplyr::select(Pais, GIRAI_region, GIRAI) %>%
+  dplyr::arrange(desc(GIRAI))
 
 # No hay un quiebre natural, se desarrollan de una forma muy heterogénea
 # Además, los puntajes siguen siendo bajos
@@ -77,34 +81,108 @@ datos_limpios %>%
 
 # -------------------------------------------------
 # Análisis del grupo
+
 lideres_valores_grupo <- datos_limpios %>%
-  group_by(lider) %>%
-  summarise(
-    Media_GOB = mean(gob),
-    Media_DDHH = mean(ddhh),
-    Media_CAP = mean(cap),
-    Media_AG = mean(ag)
+  dplyr::group_by(lider) %>%
+  dplyr::summarise(
+    Mediana_GOB = median(gob),
+    Mediana_DDHH = median(ddhh),
+    Mediana_CAP = median(cap),
+    Mediana_AG = median(ag),
+    Mediana_ANE = median(ane),
+    Desvio_GOB = sd(gob),
+    Desvio_DDHH = sd(ddhh),
+    Desvio_CAP = sd(cap),
+    Desvio_AG = sd(ag),
+    Desvio_ANE = sd(ane),
+    Min_GIRAI = min(GIRAI),
+    Max_GIRAI = max(GIRAI)
   )
+
+lideres_valores_grupo
+
+var_girai_lideres <- datos_limpios %>%
+  dplyr::filter(lider == "Líder") %>%
+  dplyr::summarize(
+    Media = mean(GIRAI),
+    Mediana = median(GIRAI),
+    Desvio = sd(GIRAI),
+    Q1 = quantile(GIRAI, 0.25),
+    Q3 = quantile(GIRAI, 0.75),
+    Rango = round(max(GIRAI) - min(GIRAI), 2),
+    Coef_Var = round(sd(GIRAI) / mean(GIRAI)*100, 2)
+  )
+
+var_girai_lideres
+
+var_girai <- datos_limpios %>%
+  dplyr::group_by(lider) %>%
+  dplyr::summarize(
+    Media = round(mean(GIRAI), 2),
+    Mediana = round(median(GIRAI), 2),
+    Desvío = round(sd(GIRAI), 2),
+    CV = round(sd(GIRAI)/mean(GIRAI)*100, 2)
+  )
+
+var_girai
 
 # -------------------------------------------------
 # Análisis p70
 resumen_p70_grupo <- datos_limpios %>%
-  select(lider, starts_with("p70_")) %>%
-  pivot_longer(
+  dplyr::select(lider, starts_with("p70_")) %>%
+  tidyr::pivot_longer(
     cols      = starts_with("p70_"),
     names_to  = "area",
     values_to = "supera70"
   ) %>%
-  mutate(area = str_remove(area, "p70_")) %>%
-  group_by(lider, area) %>%
-  summarise(
+  dplyr::mutate(area = stringr::str_remove(area, "p70_")) %>%
+  dplyr::group_by(lider, area) %>%
+  dplyr::summarise(
     frecuencia = sum(supera70),
     porcentaje = round(mean(supera70) * 100, 1),
     .groups    = "drop"
   ) %>%
-  arrange(lider, desc(porcentaje))
+  dplyr::arrange(lider, desc(porcentaje))
 
 resumen_p70_grupo
+
+# ------------------------------------------------------------------
+# Brechas entre lider y resto
+
+valores_grupo <- datos_limpios %>%
+  dplyr::group_by(lider) %>%
+  dplyr::summarise(
+    Mediana_GOB = median(gob),
+    Mediana_DDHH = median(ddhh),
+    Mediana_CAP = median(cap),
+    Mediana_AG = median(ag),
+    Mediana_ANE = median(ane)
+  ) %>%
+  tidyr::pivot_longer(
+    cols = starts_with("Mediana_"),
+    names_to = "Pilar",
+    values_to = "Mediana"
+  ) %>%
+  tidyr::pivot_wider(
+    names_from = lider,
+    values_from = Mediana
+  ) %>%
+  dplyr::mutate(
+    brecha = round(Líder - Resto, 2),
+    pilar = stringr::str_remove(Pilar, "Mediana_")
+  )
+
+valores_grupo
+
+comp_gob_ane <- datos_limpios %>%
+  dplyr::group_by(lider) %>%
+  dplyr::summarize(
+    Mediana_GOB = round(median(gob), 2),
+    Mediana_ANE = round(median(ane), 2),
+    Ratio = round(median(ane) / median(gob), 2)
+  )
+
+comp_gob_ane
 
 # --------------------------------------------------------------------
 
