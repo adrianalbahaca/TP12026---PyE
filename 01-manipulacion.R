@@ -36,6 +36,7 @@ datos_limpios <- datos %>%
     sec_ane = factor(sec_ane,
                      levels=c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"),
                      ordered=TRUE),
-    lider = factor(ifelse(GIRAI > 40, "Líder", "Resto"))
+    lider = factor(ifelse(GIRAI > 40, "Líder", "Resto")),
+    tipo_privado_es = replace_na(tipo_privado_es, "Sin iniciativas")
     # Uso de 40 por Q3, medida conservadora
   )
