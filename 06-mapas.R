@@ -40,6 +40,8 @@ mundo %>%
   ) +
   theme_minimal()
 
+ggsave("mapa_girai.png", width = 12, height = 6, dpi = 300)
+
 mundo %>%
   dplyr::left_join(datos_limpios, by = c("iso_a3" = "ISO3")) %>%
   ggplot() +

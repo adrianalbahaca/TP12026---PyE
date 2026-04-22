@@ -13,7 +13,7 @@ datos_limpios <- datos %>%
     Pais, ISO3, GIRAI_region,
 
     # Cuantitativas continuas
-    GIRAI, ddhh, gob, cap, ag, ane
+    GIRAI, ddhh, gob, cap, ag, ane,
 
     # Cuantitativa discreta
     areas_concient,
@@ -22,7 +22,7 @@ datos_limpios <- datos %>%
     tipo_privado_es,
 
     # Categórica escala ordinal
-    sec_ag, sec_ane,
+    sec_ag, sec_ane, sec_mng,
 
     # Categórica de respuesta múltiple
     p70_sesgo, p70_infancia, p70_divers, p70_datpers,

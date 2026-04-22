@@ -126,6 +126,8 @@ var_girai <- datos_limpios %>%
 
 var_girai
 
+# Conclusión 
+
 # -------------------------------------------------
 # Análisis p70
 resumen_p70_grupo <- datos_limpios %>%
