@@ -57,6 +57,8 @@ girai_valores <- datos_limpios %>%
     dif_relativa = round(mean(GIRAI)-median(GIRAI)/mean(GIRAI)*100, 1)
   )
 
+girai_valores
+
 # Cant. de países por debajo de la media
 paises_debajo <- datos_limpios %>%
   dplyr::summarise(
@@ -66,6 +68,7 @@ paises_debajo <- datos_limpios %>%
 
 paises_debajo
 
+# Conclusión: La cant. de países debajo de la media es de un 60%. Es muy alta
 # --------------------
 # Análisis de corte
 
@@ -128,8 +131,9 @@ var_girai <- datos_limpios %>%
 
 var_girai
 
-# Conclusión: En promedio, los países tienen un promedio del GIRAI de 52.2
-# mientras que en los demás países, se tiene un promedio incluso más bajo
+# Conclusión: En promedio, los países líderes tienen un promedio del GIRAI
+# decente mientras que en los demás países, se tiene un
+# promedio muy pobre
 
 # -------------------------------------------------
 # Análisis p70
@@ -151,7 +155,8 @@ resumen_p70_grupo <- datos_limpios %>%
 
 resumen_p70_grupo
 
-# Conclusión: Áreas de enfoque en países líderes y el resto
+# Conclusión: Los países líderes se enfocan en acciones para la protección de
+# datos pero no tanto en igualdad de género
 
 # ------------------------------------------------------------------
 # Brechas entre lider y resto

@@ -13,13 +13,13 @@ datos_limpios <- datos %>%
     Pais, ISO3, GIRAI_region,
 
     # Cuantitativas continuas
-    GIRAI, ddhh, gob, cap, ag, ane,
+    GIRAI, ddhh, gob, cap, ag, ane, mng,
 
     # Cuantitativa discreta
     areas_concient,
 
     # Categórica escala nominal
-    tipo_privado_es,
+    tipo_privado_es, tipo_academia_es,
 
     # Categórica escala ordinal
     sec_ag, sec_ane, sec_mng,
@@ -27,6 +27,7 @@ datos_limpios <- datos %>%
     # Categórica de respuesta múltiple
     p70_sesgo, p70_infancia, p70_divers, p70_datpers,
     p70_genero, p70_suphum, p70_transp, p70_laboral, p70_segu, p70_transp
+    
   ) %>%
   mutate (
     # Darle orden a variables cat. escala ordinal
@@ -40,3 +41,4 @@ datos_limpios <- datos %>%
     tipo_privado_es = replace_na(tipo_privado_es, "Sin iniciativas")
     # Uso de 40 por Q3, medida conservadora
   )
+
