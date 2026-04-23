@@ -43,7 +43,7 @@ resumen_p70 <- datos_limpios %>%
   dplyr::arrange(desc(frecuencia))
 
 # -------------------------------------
-# Análisis del GIRAI
+# Análisis del GIRAI (Cuantitativa continua)
 girai_valores <- datos_limpios %>%
   dplyr::summarise(
     n = dplyr::n(),
@@ -64,6 +64,8 @@ paises_debajo <- datos_limpios %>%
     porcentaje = round(sum(GIRAI < mean(GIRAI)) / dplyr::n() * 100, 1)
   )
 
+paises_debajo
+
 # --------------------
 # Análisis de corte
 
@@ -80,7 +82,7 @@ datos_limpios %>%
 # Por lo que, se elige 40 como el corte
 
 # -------------------------------------------------
-# Análisis del grupo
+# Análisis del grupo 
 
 lideres_valores_grupo <- datos_limpios %>%
   dplyr::group_by(lider) %>%
@@ -126,7 +128,8 @@ var_girai <- datos_limpios %>%
 
 var_girai
 
-# Conclusión 
+# Conclusión: En promedio, los países tienen un promedio del GIRAI de 52.2
+# mientras que en los demás países, se tiene un promedio incluso más bajo
 
 # -------------------------------------------------
 # Análisis p70
@@ -147,6 +150,8 @@ resumen_p70_grupo <- datos_limpios %>%
   dplyr::arrange(lider, desc(porcentaje))
 
 resumen_p70_grupo
+
+# Conclusión: Áreas de enfoque en países líderes y el resto
 
 # ------------------------------------------------------------------
 # Brechas entre lider y resto
@@ -186,6 +191,8 @@ comp_gob_ane <- datos_limpios %>%
 
 comp_gob_ane
 
+# Conclusión: La proporción entre estado y empresa es más junta en países
+# líderes, mientras que en países del resto, la empresa toma mayor protagonismo
 # --------------------------------------------------------------------
 
 # Otras funciones para obtener medidas
