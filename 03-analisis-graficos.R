@@ -18,23 +18,28 @@ grafico_tipo_privado <- datos_limpios %>%
   geom_text(aes(label=n), hjust=-0.3, size=4, color="black")
 
 # Variables categóricas medidas en escala ordinal
-grafico_sec_ag <- datos_limpios %>%
-  count(sec_ag) %>%
-  ggplot(aes(x=n, y=sec_ag)) +
-  labs(title="Nivel de desarrollo de acciones gubernamentales para el uso responsable de IA",
-       x="Cantidad de países con acciones gubernamentales",
-       y="Nivel de desarrollo") +
-  geom_bar(stat="identity", fill="#ceac48", width=0.4) +
-  geom_text(aes(label=n), hjust=-0.3, size=4, color="black")
+grafico_sec <- datos_limpios %>%
+  pivot_longer(cols = c(sec_ag, sec_ane), names_to="tipo_sec", values_to="nivel") %>%
+  count(tipo_sec, nivel) %>%
+  ggplot(aes(y=nivel, x=n, fill=tipo_sec)) +
+  geom_bar(stat="identity", position=position_dodge(width=0.8), width=0.7) +
+  geom_text(aes(label=n),
+            position=position_dodge(width = 0.8),
+            hjust=-0.3,
+            size=4) +
+  labs(title="Nivel de desarrollo de acciones para el uso responsable de IA",
+       x="Cantidad de países con acciones",
+       y="Nivel de desarrollo",
+       fill="Variable")
 
-grafico_sec_ane <- datos_limpios %>%
-  count(sec_ane) %>%
-  ggplot(aes(x=n, y=sec_ane)) +
-  labs(title="Nivel de desarrollo de actores no estatales respecto al uso responsable de la IA",
-       x="Cantidad de países  con acciones de actores no estatales",
-       y="Nivel de desarrollo") +
-  geom_bar(stat="identity", fill="#ceac48", width=0.4) +
-  geom_text(aes(label=n), hjust=-0.3, size=4, color="black")
+#grafico_sec <- datos_limpios %>%
+#  count(sec_ag) %>%
+#  ggplot(aes(x=n, y=sec_ag)) +
+#  labs(title="Nivel de desarrollo de acciones para el uso responsable de IA",
+#       x="Cantidad de países con acciones",
+#       y="Nivel de desarrollo") +
+#  geom_bar(stat="identity", position=position_dodge(), fill="#ff0000", width=0.4) +
+#  geom_text(aes(label=n), hjust=-0.3, size=4, color="black")
 
 # Variable categórica de respuesta múltiple
 grafico_p70 <- datos_limpios %>%
@@ -57,9 +62,9 @@ grafico_p70 <- datos_limpios %>%
            area_tematica == "p70_segu" ~ "Seguridad, Precisión y Fiabilidad"
           ), area_tematica = reorder(area_tematica, n)) %>%
   ggplot(aes(x=n, y=area_tematica)) +
-  labs(title="Distribución de países con puntajes mayores a 70",
+  labs(title="Distribución de países con puntajes positivos en distintas áreas",
        x="Cantidad de países",
-       y="Tipos de índices") +
+       y="Áreas") +
   geom_bar(stat="identity", fill="#ffd248", width=0.5) +
   geom_text(aes(label=n), hjust=-0.3, size=4, color="black")
 
