@@ -4,7 +4,7 @@
 library(googlesheets4)
 
 # Link al archivo
-url="https://docs.google.com/spreadsheets/d/1UwMDUPScSdUJ2KoyNNZJyE22d7l1wbY40v_TdJtJ0AM/edit?gid=1466735819#gid=1466735819"
+url="https://docs.google.com/spreadsheets/d/1VSNMETw4OjxadPc60S6oAbC13al2FwAx1_LSIciShag/edit?usp=sharing"
 
 # Evito loggeo
 gs4_deauth()
