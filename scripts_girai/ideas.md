@@ -7,4 +7,21 @@
     - Dimensiones por área
 
 - Variables a elegir:
-# En progreso
+  - GIRAI (Cuantitativa continua)
+  - sec_ag (Categórica ordinal)
+  - gob (Cuantitativa continua)
+  - sec_ane (Categórica ordinal)
+  - cap (Cuantitativa continua)
+  - Dimensión mejor puntuada (Categórica de respuesta múltiple)
+  - p70* (???)
+  - areas_ag (Cuantitativa discreta)
+  - areas_ane (Cuantitativa discreta)
+
+- Análisis:
+  - Univariado
+    - GIRAI (Análisis numérico)
+    - Dimensión mejor puntuada
+  - Bivariado
+    - sec_ag vs. sec_ane
+    - gob vs. cap
+    - sec_ag vs. cap
