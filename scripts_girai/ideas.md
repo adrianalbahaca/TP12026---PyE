@@ -12,8 +12,8 @@
   - gob (Cuantitativa continua)
   - sec_ane (Categórica ordinal)
   - cap (Cuantitativa continua)
-  - Dimensión mejor puntuada (Categórica de respuesta múltiple)
-  - p70* (???)
+  - Dimensión mejor puntuada (Categórica nominal)
+  - p70* (Respuesta múltiple)
   - areas_ag (Cuantitativa discreta)
   - areas_ane (Cuantitativa discreta)
 
@@ -21,6 +21,7 @@
   - Univariado
     - GIRAI (Análisis numérico)
     - Dimensión mejor puntuada
+    - p70
   - Bivariado
     - sec_ag vs. sec_ane
     - gob vs. cap
