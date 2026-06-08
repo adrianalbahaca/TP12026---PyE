@@ -1,4 +1,4 @@
-# install.packages("googlesheets4")
+install.packages("googlesheets4")
 library(googlesheets4)
 
 gs4_deauth()

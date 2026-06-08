@@ -1,5 +1,5 @@
 # Instalo los paquetes necesarios (si aún no los tengo instalados)
-# install.packages("tidyverse")
+install.packages("tidyverse")
 
 # Cargo los paquetes que voy a usar
 library(tidyverse)
@@ -10,23 +10,11 @@ library(tidyverse)
 datos_limpios <- datos %>%
   select(
     # Identificación
-    Pais, ISO3, GIRAI_region,
-
-    # Cuantitativas continuas
-    GIRAI, ddhh, gob, cap, ag, ane, mng,
-
-    # Cuantitativa discreta
-    areas_concient, areas_mng, areas_ane,
-
-    # Categórica escala nominal
-    tipo_privado_es, tipo_academia_es,
-
-    # Categórica escala ordinal
-    sec_ag, sec_ane, sec_mng,
-
-    # Categórica de respuesta múltiple
-    p70_sesgo, p70_infancia, p70_divers, p70_datpers,
-    p70_genero, p70_suphum, p70_transp, p70_laboral, p70_segu, p70_transp
+    Pais, ISO3, GIRAI_region, GIRAI,
+    sec_ag, sec_ane, gob, cap, `Dimensión mejor puntuada`,
+    p70_transp, p70_laboral, p70_segu, p70_datpers,
+    areas_ag, areas_ane
+    # Sección
     
   ) %>%
   mutate (
@@ -36,9 +24,6 @@ datos_limpios <- datos %>%
                     ordered=TRUE),
     sec_ane = factor(sec_ane,
                      levels=c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"),
-                     ordered=TRUE),
-    lider = factor(ifelse(GIRAI > 40, "Líder", "Resto")),
-    tipo_privado_es = replace_na(tipo_privado_es, "Sin iniciativas")
-    # Uso de 40 por Q3, medida conservadora
+                     ordered=TRUE)
   )
 

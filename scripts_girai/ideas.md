@@ -13,7 +13,7 @@
   - sec_ane (Categórica ordinal)
   - cap (Cuantitativa continua)
   - Dimensión mejor puntuada (Categórica nominal)
-  - p70* (Respuesta múltiple)
+  - p70_ (Respuesta múltiple)
   - areas_ag (Cuantitativa discreta)
   - areas_ane (Cuantitativa discreta)
 
