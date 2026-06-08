@@ -12,7 +12,7 @@ datos_limpios <- datos %>%
     # Identificación
     Pais, ISO3, GIRAI_region, GIRAI,
     sec_ag, sec_ane, gob, cap, `Dimensión mejor puntuada`,
-    p70_transp, p70_laboral, p70_segu, p70_datpers,
+    p70_laboral, p70_segu, p70_datpers,
     areas_ag, areas_ane
     # Sección
     
