@@ -11,9 +11,9 @@ datos_limpios <- datos %>%
   select(
     # Identificación
     Pais, ISO3, GIRAI_region, GIRAI,
-    sec_ag, sec_ane, gob, cap, `Dimensión mejor puntuada`,
+    sec_ag, sec_ane, sec_mng, gob, cap, `Dimensión mejor puntuada`,
     p70_laboral, p70_segu, p70_datpers,
-    areas_ag, areas_ane
+    areas_ag, areas_ane,
     # Sección
     
   ) %>%
