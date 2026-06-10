@@ -129,7 +129,7 @@ frecuencia_ag <- paises_desarrollados %>%
 plot_areas_ag <- frecuencia_ag %>%
   ggplot(aes(x=areas_ag, y=n)) + 
   geom_segment(aes(xend=areas_ag, yend=0), color="#69b3a2", linewidth=1.2) +
-  scale_x_continuous(breaks=min(frecuencia_ag$areas_ag):max(frecuencia_ag$areas_ag)) +
+  scale_x_continuous(breaks=0:19, limits=c(0,19)) +
   labs(
     title="Cantidad de áreas con acción gubernamental en IA en países desarrollados",
     subtitle="Distribución de frecuencias para el sector público",
@@ -151,9 +151,9 @@ frecuencia_ane <- paises_desarrollados %>%
 plot_areas_ane <- frecuencia_ane %>%
   ggplot(aes(x=areas_ane, y=n)) + 
   geom_segment(aes(xend=areas_ane, yend=0), color="#69b3a2", linewidth=1.2) +
-  scale_x_continuous(breaks=min(frecuencia_ane$areas_ane):max(frecuencia_ane$areas_ane)) +
+  scale_x_continuous(breaks=0:19, limits=c(0,19)) +
   labs(
-    title="Cantidad de áreas con acción no estatal en IA  en países desarrollados",
+    title="Cantidad de áreas con acción no estatal en IA en países desarrollados",
     subtitle="Distribución de frecuencias para actores no estatales",
     x="Cantidad de áreas con intervención",
     y="Cantidad de países"
