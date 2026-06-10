@@ -109,7 +109,7 @@ plot_dimension_mejor_puntuada <- paises_subdesarrollados %>%
            size = 4.5, 
            hjust = 0.5) +
   labs(
-    title="Prioridades del sector público en IA responsable",
+    title="Prioridades del sector público en IA responsable en países subdesarrollados",
     x="Dimensión evaluada",
     y="Cantidad de países"
   ) +
@@ -130,7 +130,7 @@ plot_areas_ag <- frecuencia_ag %>%
   geom_segment(aes(xend=areas_ag, yend=0), color="#69b3a2", linewidth=1.2) +
   scale_x_continuous(breaks=min(frecuencia_ag$areas_ag):max(frecuencia_ag$areas_ag)) +
   labs(
-    title="Cantidad de áreas con acción gubernamental en IA",
+    title="Cantidad de áreas con acción gubernamental en IA en países subdesarrollados",
     subtitle="Distribución de frecuencias para el sector público",
     x="Cantidad de áreas con intervención",
     y="Cantidad de países"
@@ -152,7 +152,7 @@ plot_areas_ane <- frecuencia_ane %>%
   geom_segment(aes(xend=areas_ane, yend=0), color="#69b3a2", linewidth=1.2) +
   scale_x_continuous(breaks=min(frecuencia_ane$areas_ane):max(frecuencia_ane$areas_ane)) +
   labs(
-    title="Cantidad de áreas con acción no estatal en IA",
+    title="Cantidad de áreas con acción no estatal en IA en países subdesarrollados",
     subtitle="Distribución de frecuencias para actores no estatales",
     x="Cantidad de áreas con intervención",
     y="Cantidad de países"
@@ -186,7 +186,7 @@ plot_indices <- paises_subdesarrollados %>%
   scale_fill_manual(values=c("1" = "#69b3a2", "0" = "#b0bec5"),
                     labels=c("1" = "Supera el umbral", "0" = "No supera el umbral")) +
   labs(
-    title="Preocupaciones regulatorias para la IA",
+    title="Preocupaciones regulatorias para la IA en países subdesarrollados",
     x="Indicador analizado",
     y="Cantidad de países",
     fill="Condición del índice"
