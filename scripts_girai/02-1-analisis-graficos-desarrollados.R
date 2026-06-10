@@ -60,6 +60,7 @@ plot_sectores
 # Bivariado - cualitativa y cuantitativa
 plot_boxplot_mng <- paises_desarrollados %>%
   filter(!is.na(sec_mng), !is.na(gob)) %>% 
+  mutate(sec_mng = factor(sec_mng, levels = c("Bajo", "Medio", "Alto", "Muy alto"))) %>%
   ggplot(aes(x = sec_mng, y = gob, fill = sec_mng)) +
   
   geom_boxplot(alpha = 0.8, color = "#555555", outlier.colour = "#ef476f", show.legend = FALSE) +
