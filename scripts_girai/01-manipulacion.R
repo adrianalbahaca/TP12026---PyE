@@ -13,7 +13,7 @@ datos_limpios <- datos %>%
     Pais, ISO3, GIRAI_region, GIRAI,
     sec_ag, sec_ane, sec_mng, gob, cap, `Dimensión mejor puntuada`,
     p70_laboral, p70_segu, p70_datpers,
-    areas_ag, areas_ane,
+    areas_ag, areas_ane
     # Sección
     
   ) %>%
@@ -23,6 +23,9 @@ datos_limpios <- datos %>%
                     levels=c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"),
                     ordered=TRUE),
     sec_ane = factor(sec_ane,
+                     levels=c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"),
+                     ordered=TRUE),
+    sec_mng = factor(sec_mng,
                      levels=c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"),
                      ordered=TRUE)
   )

@@ -80,14 +80,94 @@ girai_valores$rang_intercuantil
 
 # Conclusión: Usar la mediana no es una buena referencia. Para hacer la def.
 q3_girai <- quantile(datos_limpios$GIRAI, 0.75)
-paises_desarrollados <- datos_limpios %>% filter(GIRAI > q3_girai)
-paises_subdesarrollados <- datos_limpios %>% filter(GIRAI <= q3_girai)
+
+rm(q3_girai)
+q3_girai <- quantile(datos_limpios$GIRAI, 0.75)
+
+class(datos_limpios)
+
+paises_desarrollados <- datos_limpios %>%
+  dplyr::filter(GIRAI > q3_girai)
+
+paises_subdesarrollados <- datos_limpios %>%
+  dplyr::filter(GIRAI <= q3_girai)
 
 paises_desarrollados
 paises_subdesarrollados
 
 # --------------------------------------------------------------------
+# Análisis de gob vs cap en países desarrollados
+pd_gob_cap <- paises_desarrollados %>%
+  dplyr::summarise(
+    Media_gob = mean(gob),
+    Mediana_gob = median(gob),
+    IQR_gob = IQR(gob),
+    Sd_gob = sd(gob),
+    Media_cap = mean(cap),
+    Mediana_cap = median(cap),
+    IQR_cap = IQR(cap),
+    Sd_cap = sd(cap)
+  )
 
+psd_gob_cap <- paises_subdesarrollados %>%
+  dplyr::summarise(
+    Media_gob = mean(gob),
+    Mediana_gob = median(gob),
+    IQR_gob = IQR(gob),
+    Sd_gob = sd(gob),
+    Media_cap = mean(cap),
+    Mediana_cap = median(cap),
+    IQR_cap = IQR(cap),
+    Sd_cap = sd(cap)
+  )
+
+pd_gob_cap
+psd_gob_cap
+
+# ----------------------------------------------------------------
+niveles <- c("Muy Bajo", "Bajo", "Medio", "Alto", "Muy Alto")
+
+moda_sec_ag <- names(sort(table(datos_limpios$sec_ag), decreasing=TRUE))[1]
+moda_sec_ane <- names(sort(table(datos_limpios$sec_ane), decreasing=TRUE))[1]
+
+mediana_sec_ag <- median(as.numeric(factor(datos_limpios$sec_ag, levels=niveles)), na.rm=TRUE)
+mediana_sec_ane <- median(as.numeric(factor(datos_limpios$sec_ane, levels=niveles)), na.rm=TRUE)
+
+mediana_sec_ag
+mediana_sec_ane
+moda_sec_ag
+moda_sec_ane
+
+# ----------------------------------------------------------------------------
+# Comparativa entre países desarrollados y países subdesarrollados
+# Desarrollados
+paises_desarrollados <- datos_limpios %>%
+  dplyr::filter(GIRAI > q3_girai) %>%
+  dplyr::summarise(
+    mediana_gob = median(gob, na.rm=TRUE),
+    mediana_cap = median(cap, na.rm=TRUE),
+    mediana_areas_ag = median(areas_ag, na.rm=TRUE),
+    mediana_areas_ane = median(areas_ane, na.rm=TRUE),
+    prop_p70_laboral = mean(p70_laboral, na.rm=TRUE),
+    prop_p70_datpers = mean(p70_datpers, na.rm=TRUE),
+    prop_p70_segu = mean(p70_segu, na.rm=TRUE)
+  )
+
+# Subdesarrollados
+paises_subdesarrollados <- datos_limpios %>%
+  dplyr::filter(GIRAI <= q3_girai) %>%
+  dplyr::summarise(
+    mediana_gob = median(gob, na.rm=TRUE),
+    mediana_cap = median(cap, na.rm=TRUE),
+    mediana_areas_ag = median(areas_ag, na.rm=TRUE),
+    mediana_areas_ane = median(areas_ane, na.rm=TRUE),
+    prop_p70_laboral = mean(p70_laboral, na.rm=TRUE),
+    prop_p70_datpers = mean(p70_datpers, na.rm=TRUE),
+    prop_p70_segu = mean(p70_segu, na.rm=TRUE)
+  )
+
+paises_desarrollados
+paises_subdesarrollados
 # Otras funciones para obtener medidas
 
 # Posición: tendencia central
