@@ -127,11 +127,11 @@ psd_gob_cap
 # ----------------------------------------------------------------
 niveles <- c("Muy Bajo", "Bajo", "Medio", "Alto", "Muy Alto")
 
-moda_sec_ag <- names(sort(table(datos_limpios$sec_ag), decreasing=TRUE))[1]
-moda_sec_ane <- names(sort(table(datos_limpios$sec_ane), decreasing=TRUE))[1]
+moda_sec_ag <- names(sort(table(paises_desarrollados$sec_ag), decreasing=TRUE))[1]
+moda_sec_ane <- names(sort(table(paises_desarrollados$sec_ane), decreasing=TRUE))[1]
 
-mediana_sec_ag <- median(as.numeric(factor(datos_limpios$sec_ag, levels=niveles)), na.rm=TRUE)
-mediana_sec_ane <- median(as.numeric(factor(datos_limpios$sec_ane, levels=niveles)), na.rm=TRUE)
+mediana_sec_ag <- median(as.numeric(factor(paises_desarrollados$sec_ag, levels=niveles)), na.rm=TRUE)
+mediana_sec_ane <- median(as.numeric(factor(paises_desarrollados$sec_ane, levels=niveles)), na.rm=TRUE)
 
 mediana_sec_ag
 mediana_sec_ane
@@ -141,7 +141,7 @@ moda_sec_ane
 # ----------------------------------------------------------------------------
 # Comparativa entre países desarrollados y países subdesarrollados
 # Desarrollados
-paises_desarrollados <- datos_limpios %>%
+pd <- datos_limpios %>%
   dplyr::filter(GIRAI > q3_girai) %>%
   dplyr::summarise(
     mediana_gob = median(gob, na.rm=TRUE),
@@ -154,7 +154,7 @@ paises_desarrollados <- datos_limpios %>%
   )
 
 # Subdesarrollados
-paises_subdesarrollados <- datos_limpios %>%
+psd <- datos_limpios %>%
   dplyr::filter(GIRAI <= q3_girai) %>%
   dplyr::summarise(
     mediana_gob = median(gob, na.rm=TRUE),
@@ -166,8 +166,8 @@ paises_subdesarrollados <- datos_limpios %>%
     prop_p70_segu = mean(p70_segu, na.rm=TRUE)
   )
 
-paises_desarrollados
-paises_subdesarrollados
+pd
+psd
 # Otras funciones para obtener medidas
 
 # Posición: tendencia central
