@@ -247,3 +247,17 @@ plot_sec_ag <- paises_subdesarrollados %>%
   )
 
 plot_sec_ag
+
+plots <- list(
+  "psd_dimension" = plot_dimension_mejor_puntuada,
+  "psd_areas_ag" = plot_areas_ag,
+  "psd_sec_ag" = plot_sec_ag,
+  "psd_sectores" = plot_sectores,
+  "psd_indices" = plot_indices
+)
+
+ruta <- "/home/aathinkpad/Documentos/Code/Universidad/PyE/TP12026---PyE/scripts_girai"
+
+for (nombre in names(plots)) {
+  ggsave(paste0(ruta, nombre, ".png"), plots[[nombre]], width=10, height=6, dpi=150)
+}

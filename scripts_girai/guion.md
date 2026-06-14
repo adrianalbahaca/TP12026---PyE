@@ -4,17 +4,18 @@
 
 La IA se volvió parte de nuestra vida, pero la velocidad no siempre viene con responsabilidad.
 
-En EEUU, el sistema COMPAS evaluaba riesgo criminal con IA. -> El resultado: datos tergiversados, riesgos aumentados injustamente.
+En 2016, ProPublica subió un artículo del sistema COMPAS para clasificación de probabilidad de reincidencia
+-> Ha mostrado un sesgo a personas negras como alto riesgo el doble de veces que personas blancas, a pesar de que no reincidan
+-> Esto ha iniciado un debate sobre si la IA puede ser verdaderamente justa
 
-Hoy, Argentina apuesta a integrar IA al Estado. -> SalesForce anunción inversión de 500 millones de dolares durante 5 años -> Foco en integrar IA en procesos del Estado
+Hoy, Argentina apuesta a integrar IA al Estado
+-> SalesForce anunción inversión de 500 millones de dolares durante 5 años
+-> Foco en integrar IA en procesos del Estado
 
 ¿Estamos listos para eso?
-
-El GIRAI 2024 nos da una respuesta... y no es alentadora.
+¿Cómo lo medimos? -> GIRAI
 
 # Contexto
-
-¿Cómo lo medimos? -> GIRAI
 
 Qué es el GIRAI?
 El GIRAI es un puntaje que se le da a los países con respecto a esta problemática
@@ -62,7 +63,7 @@ Y comparado con los subdesarrollados?
 Los líderes no solo regulan más... regulan en más frentes.
 -> En áreas con acción gubernamental, 14 contra 3.
 -> En actores no estatales, 16 contra 4.
-[plot_areas_Ag]
+[plot_areas_ag]
 [plot_dimension_mejor_puntuada]
 
 -> Hay una alta variabilidad en los puntajes de nivel de desarrollo

@@ -6,6 +6,8 @@
 library(tidyverse)
 library(ggplot2)
 
+theme_set(theme_minimal(base_size=25))
+
 # Bivariado - cuantitativa y cuantitativa
 plot_bivariado_gob_cap <- paises_desarrollados %>%
   filter(!is.na(gob), !is.na(cap)) %>%
@@ -247,3 +249,31 @@ plot_sec_ag <- paises_desarrollados %>%
   )
 
 plot_sec_ag
+
+plots <- list(
+  "pd_gob_cap" = plot_bivariado_gob_cap,
+  "pd_boxplot_gob" = plot_boxplot_gob,
+  "pd_sec_ag_sec_ane" = plot_sectores,
+  "pd_boxplot_mng" = plot_boxplot_mng,
+  "plot_areas_ag_pd" = plot_areas_ag,
+  "plot_sec_ag_pd" = plot_sec_ag,
+  "pd_indices" = plot_indices,
+  "pd_sectores" = plot_sectores
+)
+
+ruta <- "/home/aathinkpad/Documentos/Code/Universidad/PyE/TP12026---PyE/scripts_girai"
+
+for (nombre in names(plots)) {
+  ggsave(paste0(ruta, nombre, ".png"), plots[[nombre]], width=10, height=6, dpi=150)
+}
+
+plot_girai <- ggplot(datos_limpios, aes(x = GIRAI)) +
+  geom_histogram(fill = "#69b3a2", color = "white", bins = 20) +
+  geom_vline(xintercept = q3_girai, color = "red", linetype = "dashed", linewidth = 1) +
+  annotate("text", x = q3_girai + 3, y = 15, label = "Umbral: 32.9", color = "red", size = 5) +
+  labs(title = "Distribución del índice GIRAI 2024",
+       x = "Puntaje GIRAI", y = "Cantidad de países") +
+  theme_minimal(base_size = 18)
+
+plot_girai
+ggsave(paste0(ruta, "plot_girai.png"), plot_girai, width=10, height=6, dpi=150)
