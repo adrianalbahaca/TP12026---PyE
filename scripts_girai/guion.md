@@ -13,14 +13,23 @@ Hoy, Argentina apuesta a integrar IA al Estado
 -> Foco en integrar IA en procesos del Estado
 
 ¿Estamos listos para eso?
-¿Cómo lo medimos? -> GIRAI
 
 # Contexto
 
+¿Cómo lo medimos? -> GIRAI
+
 Qué es el GIRAI?
+Proyecto del Centro Global de Gobernanza de la IA
 El GIRAI es un puntaje que se le da a los países con respecto a esta problemática
--> Tres pilares: Gobernanza en IA, IA y Derechos Humanos, Capacidades Estatales de la IA
-Nuestra base de datos se basa en 138 países | Escala del 1 al 100
+-> Tres pilares: 
+    -> Gobernanza en IA: Grado en que los gobiernos cuentan con normas, políticas, procesos y prácticas que regulan el diseño y desarrollo de sistemas de IA de forma segura y ética
+    -> IA y Derechos Humanos: Grado en que los países cuentan con medidas para proteger y respetar los derechos humanos en clave afectados por la IA
+    -> Capacidades Estatales de la IA: Grado en que existen y promueven las capacidades estatales necesarias para impulsar la IA responsable
+ 138 países partícipes, entre Noviembre de 2023 y Febrero de 2024 | Escala del 1 al 100
+
+ [mapa_girai]
+
+# Países desarrollados
 
 Ahora, ¿Qué puntaje se espera de un país desarrollado? -> 33 (Dejar que el shock se asiente)
 
@@ -29,12 +38,9 @@ Mediana -> ~12
 
 Según la mediana, los países encuestados están con un puntaje del 12
 
-[plot_girai]
-
-# Países desarrollados
-
 Entonces, quiénes son los desarrollados? -> Países en el top 25%
 
+Qué comparativas tienen? Qué los define
 Relación gob vs cap -> Bastante pareja, La capacidad estatal de promover la IA responsable va a la par con la gobernanza
 Promedio de gob -> 46.7
 vs Promedio de cap -> 44.7
@@ -90,7 +96,7 @@ Pero no en IA responsable.
 Mientras que en países desarrollados, notamos un mayor balance entre capacidad y gobernanza sobre la misma,
 en países subdesarrollados, hay un gran camino por recorrer
 
-La mayoría de los países tiene puntajes por debajo de 12 sobre 100.
+En promedio, los países tiene puntajes por debajo de 12 sobre 100.
 La brecha entre líderes y el resto es grande, y las situaciones en cada país varían drásticamente entre cada uno
 
 Y en protección de datos, derechos laborales, seguridad...
@@ -108,4 +114,5 @@ Mientras que hay que analizar más de cerca cada país en los países subdesarro
 
 Las consideraciones para Argentina deben ser mucho más distintas que las consideraciones que se deben tener para Armenia
 
-Sin embargo, en términos generales, se requiere que traten de mejorar en las áreas de seguridad
+## Regrabar
+- P70
